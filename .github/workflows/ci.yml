@@ -28,7 +28,7 @@ jobs:
         run: "bun install"
 
       - name: "Lint the code"
-        run: "bun run lint"
+        run: "bun run full-check"
 
       - name: "Add lint summary"
         run: |

@@ -169,7 +169,7 @@ $ forge test --gas-report
 Lint the contracts:
 
 ```sh
-$ bun run lint
+$ bun run full-check
 ```
 
 ### Test

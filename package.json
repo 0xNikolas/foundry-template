@@ -29,10 +29,11 @@
     "build": "forge build",
     "forge-check": "forge fmt --check",
     "forge-write": "forge fmt",
-    "lint": "bun run lint:sol && bun run prettier:check",
-    "lint:sol": "bun run forge-check && bun solhint \"{script,src,tests}/**/*.sol\"",
+    "full-check": "bun run forge-check && bun run solhint-check && bun run prettier:check",
+    "full-write": "bun run forge-write && bun run prettier:write",
     "prettier:check": "prettier --check \"**/*.{json,md,yml}\"",
     "prettier:write": "prettier --write \"**/*.{json,md,yml}\"",
+    "solhint-check": "bun solhint \"{script,src,tests}/**/*.sol\"",
     "test": "forge test"
   }
 }
