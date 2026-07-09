@@ -16,13 +16,13 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Check out the repo"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v7"
 
       - name: "Install Foundry"
         uses: "foundry-rs/foundry-toolchain@v1"
 
       - name: "Install Bun"
-        uses: "oven-sh/setup-bun@v1"
+        uses: "oven-sh/setup-bun@v2"
 
       - name: "Install the Node.js dependencies"
         run: "bun install"
@@ -39,13 +39,13 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Check out the repo"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v7"
 
       - name: "Install Foundry"
         uses: "foundry-rs/foundry-toolchain@v1"
 
       - name: "Install Bun"
-        uses: "oven-sh/setup-bun@v1"
+        uses: "oven-sh/setup-bun@v2"
 
       - name: "Install the Node.js dependencies"
         run: "bun install"
@@ -63,13 +63,13 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Check out the repo"
-        uses: "actions/checkout@v4"
+        uses: "actions/checkout@v7"
 
       - name: "Install Foundry"
         uses: "foundry-rs/foundry-toolchain@v1"
 
       - name: "Install Bun"
-        uses: "oven-sh/setup-bun@v1"
+        uses: "oven-sh/setup-bun@v2"
 
       - name: "Install the Node.js dependencies"
         run: "bun install"
