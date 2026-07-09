@@ -1,11 +1,11 @@
 {
-  "name": "@prb/foundry-template",
+  "name": "@0xnikolas/foundry-template",
   "description": "Foundry-based template for developing Solidity smart contracts",
   "private": true,
   "version": "1.0.0",
   "author": {
-    "name": "Paul Razvan Berg",
-    "url": "https://github.com/PaulRBerg"
+    "name": "0xNikolas",
+    "url": "https://github.com/0xNikolas"
   },
   "dependencies": {
     "@openzeppelin/contracts": "5.3.0"
