@@ -27,9 +27,9 @@ and remapped through `remappings.txt` instead of git submodules.
 - `forge fmt --check` — check Solidity formatting without writing
 - `forge clean` — delete `out/` and `cache/`
 - `forge config` — print the resolved Foundry config
-- `forge script script/Deploy.s.sol --broadcast --fork-url http://localhost:8545` — deploy `Foo` to a local node
+- `forge script script/Deploy.s.sol --broadcast --rpc-url http://localhost:8545` — deploy `Foo` to a local node
   (requires `MNEMONIC` or `ETH_FROM`)
-- `forge script script/DeployBrowser.s.sol --broadcast --fork-url http://localhost:8545 --browser` — deploy `Foo` to a
+- `forge script script/DeployBrowser.s.sol --broadcast --rpc-url http://localhost:8545 --browser` — deploy `Foo` to a
   local node (requires you to connect your wallet at localhost:9545)
 
 ### Bun scripts (`package.json`)

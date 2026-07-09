@@ -1,9 +1,7 @@
-# Foundry Template [![Open in Gitpod][gitpod-badge]][gitpod] [![Github Actions][gha-badge]][gha] [![Foundry][foundry-badge]][foundry] [![License: MIT][license-badge]][license]
+# Foundry Template [![Github Actions][gha-badge]][gha] [![Foundry][foundry-badge]][foundry] [![License: MIT][license-badge]][license]
 
-[gitpod]: https://gitpod.io/#https://github.com/PaulRBerg/foundry-template
-[gitpod-badge]: https://img.shields.io/badge/Gitpod-Open%20in%20Gitpod-FFB45B?logo=gitpod
-[gha]: https://github.com/PaulRBerg/foundry-template/actions
-[gha-badge]: https://github.com/PaulRBerg/foundry-template/actions/workflows/ci.yml/badge.svg
+[gha]: https://github.com/0xNikolas/foundry-template/actions
+[gha-badge]: https://github.com/0xNikolas/foundry-template/actions/workflows/ci.yml/badge.svg
 [foundry]: https://getfoundry.sh/
 [foundry-badge]: https://img.shields.io/badge/Built%20with-Foundry-FFDB1C.svg
 [license]: https://opensource.org/licenses/MIT
@@ -26,12 +24,52 @@ Std, OpenZeppelin Contracts, Prettier, and Solhint.
 
 ## Links
 
-- [Use this template](https://github.com/PaulRBerg/foundry-template/generate)
+- [Use this template](https://github.com/0xNikolas/foundry-template/generate)
 - [Foundry Book](https://book.getfoundry.sh)
 - [Writing Tests](https://book.getfoundry.sh/forge/writing-tests.html)
 
+## Handling Private Keys
+
+Deployment scripts broadcast with an argument-less `vm.startBroadcast()`, so the broadcaster is taken from the command
+line — via `--private-key` or `--account` — with no changes to the scripts.
+
+This is a deliberate choice: the key is never read from an env var, so no `PRIVATE_KEY` entry ever sits in `.env` or any
+other project file waiting to be committed by mistake. Instead, supply it at deploy time in one of the following ways,
+none of which leaves the plaintext key on disk or in your shell history.
+
+### From a Password Manager
+
+```sh
+forge script script/Deploy.s.sol --broadcast --rpc-url http://localhost:8545 \
+  --private-key "$(<password-manager-cli> read deployer-key)"
+```
+
+### From a GPG-Encrypted File
+
+```sh
+forge script script/Deploy.s.sol --broadcast --rpc-url http://localhost:8545 \
+  --private-key "$(gpg --decrypt --quiet deployer.key.gpg)"
+```
+
+### From an Encrypted Keystore
+
+Import the key once — typed interactively — and pick a keystore password:
+
+```sh
+cast wallet import deployer --interactive
+```
+
+This writes an encrypted ERC-2335 keystore JSON to `~/.foundry/keystores/deployer`. From then on, deploy with
+`--account` and enter the password when prompted:
+
+```sh
+forge script script/Deploy.s.sol --broadcast --rpc-url http://localhost:8545 \
+  --account deployer
+```
+
 ## Related Projects
 
+- [defi-wonderland/foundry-template](https://github.com/defi-wonderland/foundry-template)
 - [foundry-rs/forge-template](https://github.com/foundry-rs/forge-template)
 - [abigger87/femplate](https://github.com/abigger87/femplate)
 - [cleanunicorn/ethereum-smartcontract-template](https://github.com/cleanunicorn/ethereum-smartcontract-template)
