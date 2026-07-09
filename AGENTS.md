@@ -27,8 +27,8 @@ and remapped through `remappings.txt` instead of git submodules.
 - `forge fmt --check` — check Solidity formatting without writing
 - `forge clean` — delete `out/` and `cache/`
 - `forge config` — print the resolved Foundry config
-- `forge script script/Deploy.s.sol --broadcast --rpc-url http://localhost:8545` — deploy `Foo` to a local node
-  (requires `MNEMONIC` or `ETH_FROM`)
+- `forge script script/Deploy.s.sol --broadcast --rpc-url http://localhost:8545` — deploy `Foo` to a local node (pass
+  the broadcaster key via `--private-key` or `--account`; see "Handling Private Keys" in the README)
 - `forge script script/DeployBrowser.s.sol --broadcast --rpc-url http://localhost:8545 --browser` — deploy `Foo` to a
   local node (requires you to connect your wallet at localhost:9545)
 
@@ -73,12 +73,11 @@ and remapped through `remappings.txt` instead of git submodules.
   `Test`; `setUp()` runs before each case.
 - **Fuzz runs**: 1,000 under the `default` profile, 10,000 under `ci`.
 - **Fork tests**: read `API_KEY_ALCHEMY` and silently pass when it is unset.
-- **Scripts**: inherit `BaseScript`; the broadcaster is taken from `$ETH_FROM`, else derived from `$MNEMONIC` (falls
-  back to a test mnemonic so scripts compile without env vars).
+- **Scripts**: inherit `BaseScript`; they broadcast with an argument-less `vm.startBroadcast()`, so the broadcaster is
+  supplied on the command line via `--private-key` or `--account` — never via env vars.
 - **Adding dependencies**: `bun install <pkg>` (or `bun install github:user/repo`), then add `name=node_modules/name` to
   `remappings.txt`. Do not use git submodules.
-- **Env vars** (see `.env.example`): `API_KEY_ALCHEMY`, `API_KEY_ETHERSCAN`, `API_KEY_INFURA`, `MNEMONIC`,
-  `FOUNDRY_PROFILE`; `ETH_FROM` optionally overrides the broadcaster.
+- **Env vars** (see `.env.example`): `API_KEY_ALCHEMY`, `API_KEY_ETHERSCAN`, `API_KEY_INFURA`, `FOUNDRY_PROFILE`.
 - **Profiles**: `default` and `ci` (10k fuzz runs, verbosity 4), selected via `FOUNDRY_PROFILE`.
 - **RPC + Etherscan**: endpoints for mainnet, sepolia, arbitrum, avalanche, base, bnb_smart_chain, gnosis_chain,
   optimism, polygon, and localhost are defined in `foundry.toml`.
