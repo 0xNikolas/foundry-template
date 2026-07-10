@@ -4,11 +4,9 @@ pragma solidity >=0.8.29 <0.9.0;
 import { Test } from "forge-std/src/Test.sol";
 import { console2 } from "forge-std/src/console2.sol";
 
-import { Foo } from "../src/Foo.sol";
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-interface IERC20 {
-    function balanceOf(address account) external view returns (uint256);
-}
+import { Foo } from "../src/Foo.sol";
 
 /// @dev If this is your first time with Forge, read this tutorial in the Foundry Book:
 /// https://book.getfoundry.sh/forge/writing-tests
@@ -39,11 +37,10 @@ contract FooTest is Test {
     /// @dev Fork test that runs against an Ethereum Mainnet fork. For this to work, you need to set `API_KEY_ALCHEMY`
     /// in your environment You can get an API key for free at https://alchemy.com.
     function testFork_Example() external {
-        // Silently pass this test if there is no API key.
+        // Report this test as skipped if there is no API key, so a fork test that never ran is
+        // distinguishable from one that passed.
         string memory alchemyApiKey = vm.envOr("API_KEY_ALCHEMY", string(""));
-        if (bytes(alchemyApiKey).length == 0) {
-            return;
-        }
+        vm.skip(bytes(alchemyApiKey).length == 0);
 
         // Otherwise, run the test against the mainnet fork.
         vm.createSelectFork({ urlOrAlias: "mainnet", blockNumber: 16_428_000 });

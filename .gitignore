@@ -1,20 +1,45 @@
-# directories
-cache
-coverage
+# General
 node_modules
-out
-
-# files
-*.env
-*.log
 .DS_Store
 .pnp.*
-lcov.info
+*.log
+
+# Package manager lockfiles from other ecosystems
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
 
-# broadcasts
-!broadcast
-broadcast/*
-broadcast/*/31337/
+# Foundry files
+cache
+out
+out-via-ir
+coverage
+lcov.info
+crytic-export
+
+# Config files
+*.env
+
+# Claude Code
+.claude/
+
+# Obsidian
+.obsidian/
+**/.obsidian/
+
+# Avoid ignoring gitkeep
+!/**/.gitkeep
+
+# Foundry broadcast logs — commit real-network deployment records (audit trail:
+# tx hashes, block numbers, constructor args; powers forge verify & --resume).
+# Ignore only local-chain and dry-run noise (forge-init default).
+!/broadcast
+/broadcast/*/31337/
+/broadcast/*/1337/
+/broadcast/**/dry-run/
+
+# Local gstack artifacts (security reports etc.) — never committed
+.gstack/
+
+# Serena MCP server local state
+.serena/

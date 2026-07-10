@@ -31,6 +31,6 @@ sedi () {
   sed --version >/dev/null 2>&1 && sed -i -- "$@" || sed -i "" "$@"
 }
 
-# Rename instances of "0xNikolas/foundry-template" to the new repo name in README.md for badges only
-sedi "/gha/ s|0xNikolas/foundry-template|"${GITHUB_REPOSITORY}"|;" "README.md"
-sedi "/gha-badge/ s|0xNikolas/foundry-template|"${GITHUB_REPOSITORY}"|;" "README.md"
+# Rename all instances of "0xNikolas/foundry-template" to the new repo name in README.md
+# (covers the badge links and the "Use this template" link alike)
+sedi "s|0xNikolas/foundry-template|${GITHUB_REPOSITORY}|g" "README.md"

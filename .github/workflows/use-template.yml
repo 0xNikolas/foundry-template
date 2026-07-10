@@ -6,10 +6,19 @@ on:
 
 jobs:
   create:
-    # We only run this action when the repository isn't the template repository. References:
+    # Run only on the initial push that creates the default branch of a repo generated from this
+    # template — never in the template repository itself, never on later pushes or other branches.
+    # This is an explicit run-once guard; we don't rely solely on the workflow deleting itself
+    # below, since a partial failure would otherwise let a later push re-run the rename and
+    # force-amend real history. References:
     # - https://docs.github.com/en/actions/learn-github-actions/contexts
     # - https://docs.github.com/en/actions/learn-github-actions/expressions
-    if: ${{ !github.event.repository.is_template }}
+    if: >-
+      ${{
+        !github.event.repository.is_template &&
+        github.event.created &&
+        github.ref_name == github.event.repository.default_branch
+      }}
     permissions: "write-all"
     runs-on: "ubuntu-latest"
     steps:
@@ -28,7 +37,6 @@ jobs:
 
       - name: "Remove files not needed in the user's copy of the template"
         run: |
-          rm -f "./.github/FUNDING.yml"
           rm -f "./.github/scripts/rename.sh"
           rm -f "./.github/workflows/use-template.yml"
 

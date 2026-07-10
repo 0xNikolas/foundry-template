@@ -29,8 +29,6 @@ and remapped through `remappings.txt` instead of git submodules.
 - `forge config` — print the resolved Foundry config
 - `forge script script/Deploy.s.sol --broadcast --rpc-url http://localhost:8545` — deploy `Foo` to a local node (pass
   the broadcaster key via `--private-key` or `--account`; see "Handling Private Keys" in the README)
-- `forge script script/DeployBrowser.s.sol --broadcast --rpc-url http://localhost:8545 --browser` — deploy `Foo` to a
-  local node (requires you to connect your wallet at localhost:9545)
 
 ### Bun scripts (`package.json`)
 
